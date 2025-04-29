@@ -2,8 +2,8 @@ const BoxGallery = () => {
 	return (
 		<div id="BoxGallery">
 			<div className="flex justify-between">
-				<img src="/upload.png" alt="" className="w-auto h-10" />
-				<img src="/next.png" alt="" className="h-5 w-5" />
+				<img src="https://files.catbox.moe/ium3cx.jpeg" alt="" className="w-auto h-10" />
+				<img src="https://files.catbox.moe/1ejhfq.jpeg" alt="" className="h-5 w-5" />
 			</div>
 
 			<h1 className="text-white text-xl pr-3  mt-3">Class Gallery</h1>
