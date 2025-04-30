@@ -20,7 +20,7 @@ const Rabu = () => {
 					<div className="flex justify-center items-center text-sm">12.15-12.45</div>
 				</div>
 				
-				<div className=" flex justify-between py-[0.50rem] w-72 px-3 opacity-60" data-aos="fade-up" data-aos-duration="700">
+				<div className=" flex justify-between py-[0.50rem] w-72 px-3 opacity-60" data-aos="fade-up" data-aos-duration="900">
 					<div className="w-[50%] text-base  font-medium">Geografi</div>
 					<div className="flex justify-center items-center text-sm">12.45-14.05</div>
 				</div>
