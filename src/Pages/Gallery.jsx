@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import { supabase } from "../utils/supabaseClient"
+import React, { useState, useEffect } from "react"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -10,131 +11,102 @@ import CloseIcon from "@mui/icons-material/Close"
 import { useSpring, animated } from "@react-spring/web"
 
 const Carousel = () => {
-	const [images] = useState([
-		"https://files.catbox.moe/ium3cx.jpeg",
-		"https://files.catbox.moe/1ejhfq.jpeg",
-		"https://files.catbox.moe/vlriqi.jpeg",
-		"https://files.catbox.moe/ium3cx.jpeg",
-		"https://files.catbox.moe/1ejhfq.jpeg",
-	]) // Ganti dengan URL Catbox milikmu
+  const [images, setImages] = useState([])
+  const [open, setOpen] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null)
 
-	const [open, setOpen] = useState(false)
-	const [selectedImage, setSelectedImage] = useState(null)
+  useEffect(() => {
+    supabase
+      .from("gallery")
+      .select("image_url")
+      .then(({ data, error }) => {
+        if (!error && data) {
+          setImages(data.map(item => item.image_url))
+        }
+      })
+  }, [])
 
-	const modalFade = useSpring({
-		opacity: open ? 1 : 0,
-		config: { duration: 300 },
-	})
+  const modalFade = useSpring({
+    opacity: open ? 1 : 0,
+    config: { duration: 300 },
+  })
 
-	const settings = {
-		centerMode: true,
-		centerPadding: "30px",
-		slidesToShow: 3,
-		slidesToScroll: 1,
-		autoplay: true,
-		autoplaySpeed: 2000,
-		dots: true,
-		responsive: [
-			{
-				breakpoint: 768,
-				settings: {
-					arrows: false,
-					centerMode: true,
-					centerPadding: "50px",
-					slidesToShow: 1,
-					dots: false,
-				},
-			},
-			{
-				breakpoint: 480,
-				settings: {
-					arrows: false,
-					centerMode: true,
-					centerPadding: "70px",
-					slidesToShow: 1,
-					dots: false,
-				},
-			},
-		],
-	}
+  const settings = {
+    centerMode: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
+    speed: 500,
+    infinite: true,
+    focusOnSelect: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          centerPadding: "30px",
+        },
+      },
+    ],
+  }
 
-	const handleImageClick = (imageUrl) => {
-		setSelectedImage(imageUrl)
-		setOpen(true)
-	}
+  const handleOpen = (image) => {
+    setSelectedImage(image)
+    setOpen(true)
+  }
 
-	const handleCloseModal = () => {
-		setOpen(false)
-		setSelectedImage(null)
-	}
+  const handleClose = () => {
+    setOpen(false)
+    setSelectedImage(null)
+  }
 
-	return (
-		<>
-			<div className="text-white opacity-60 text-base font-semibold mb-4 mx-[10%] mt-10 lg:text-center lg:text-3xl lg:mb-8" id="Gallery">
-				Class Gallery
-			</div>
-			<div id="Carousel">
-				<Slider {...settings}>
-					{images.map((imageUrl, index) => (
-						<img
-							key={index}
-							src={imageUrl}
-							alt={`Image ${index}`}
-							onClick={() => handleImageClick(imageUrl)}
-							style={{ cursor: "pointer" }}
-						/>
-					))}
-				</Slider>
-			</div>
+  return (
+    <div className="carousel-container">
+      <Slider {...settings}>
+        {images.map((img, index) => (
+          <div key={index} onClick={() => handleOpen(img)}>
+            <img src={img} alt={`Gallery ${index}`} className="carousel-image" />
+          </div>
+        ))}
+      </Slider>
 
-			<div className="flex justify-center items-center gap-6 text-base mt-5 lg:mt-8">
-				<ButtonSend />
-				<ButtonRequest />
-			</div>
+      <Modal open={open} onClose={handleClose}>
+        <animated.div style={modalFade}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "80%",
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 2,
+              outline: "none",
+            }}
+          >
+            <IconButton
+              onClick={handleClose}
+              sx={{ position: "absolute", top: 8, right: 8 }}
+            >
+              <CloseIcon />
+            </IconButton>
+            {selectedImage && (
+              <img
+                src={selectedImage}
+                alt="Selected"
+                style={{ width: "100%", height: "auto" }}
+              />
+            )}
+          </Box>
+        </animated.div>
+      </Modal>
 
-			<Modal
-				open={open}
-				onClose={handleCloseModal}
-				aria-labelledby="image-modal"
-				aria-describedby="image-modal-description"
-				className="flex justify-center items-center">
-				<animated.div
-					style={{
-						...modalFade,
-						maxWidth: "90vw",
-						maxHeight: "auto",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						position: "relative",
-					}}
-					className="p-2 rounded-lg">
-					<IconButton
-						edge="end"
-						color="inherit"
-						onClick={handleCloseModal}
-						aria-label="close"
-						sx={{
-							position: "absolute",
-							top: "12px",
-							right: "23px",
-							backgroundColor: "white",
-							borderRadius: "50%",
-						}}>
-						<CloseIcon />
-					</IconButton>
-					<div className="w-full">
-						<img
-							src={selectedImage}
-							alt="Selected"
-							style={{ maxWidth: "100%", maxHeight: "100vh" }}
-						/>
-					</div>
-				</animated.div>
-			</Modal>
-		</>
-	)
+      <div className="button-container" style={{ marginTop: "2rem", textAlign: "center" }}>
+        <ButtonSend />
+        <ButtonRequest />
+      </div>
+    </div>
+  )
 }
 
 export default Carousel
