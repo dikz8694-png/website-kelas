@@ -99,7 +99,7 @@ const Schedule = () => {
             </div>
           ))
         ) : (
-          <p className="opacity-50">(Atmin MAGER NULIS🤓)</p>
+          <p className="opacity-50">(ATMIN MAGER NGETIK🤓)</p>
         )}
       </div>
     </>
