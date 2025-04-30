@@ -10,13 +10,13 @@ const Jumat = React.lazy(() => import("../components/Mapel/Jumat"));
 
 const Schedule = () => {
   const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
+    "Minggu",
+    "Senin",
+    "Selasa",
+    "Rabu",
+    "Kamis",
+    "Jumat",
+    "Sabtu",
   ];
   const currentDay = daysOfWeek[new Date().getDay()];
   const currentWeek = Math.floor((new Date().getDate() - 1) / 7) + 1;
