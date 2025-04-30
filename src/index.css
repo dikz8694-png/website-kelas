@@ -70,7 +70,7 @@ body {
 	background-color: #555;
 }
 
-#Home { position: relative; width: 100%; height: auto; background: radial-gradient( circle, rgba(224, 107, 213, 0.8520658263305322) 0%, rgba(75, 57, 198, 0.9052871148459384) 100% ), url("/Background.png"); background-repeat: no-repeat; background-size: contain; background-position: top; z-index: 10; }
+#Home { position: relative; width: 100%; height: 100vh; background: radial-gradient( circle, rgba(224, 107, 213, 0.8520658263305322) 0%, rgba(75, 57, 198, 0.9052871148459384) 100% ), url("/Background.png"); background-repeat: no-repeat; background-size: contain; background-position: top; z-index: 10; }
 
 #Home::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, rgba(30, 30, 30, 1) 20%, rgba(30, 30, 30, 0));
 
