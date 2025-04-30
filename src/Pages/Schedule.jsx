@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -67,9 +67,9 @@ const Schedule = () => {
             {currentDay}
           </div>
           <div data-aos="fade-up" data-aos-duration="400">
-           
-              <p className="opacity-50"> (ADMIN MAGER NULIS🤓)</p>
-            
+<Suspense fallback={<p className="opacity-50">Loading...</p>}>
+            {TodayComponent ? <TodayComponent /> : <p className="opacity-50">(ADMIN MAGER NULIS🤓)</p>}
+          </Suspense>
           </div>
         </div>
       </div>
