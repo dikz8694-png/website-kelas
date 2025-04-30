@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal"
 import Typography from "@mui/material/Typography"
 import { useSpring, animated } from "@react-spring/web"
 import CloseIcon from "@mui/icons-material/Close"
-import { getStorage, ref, listAll, getDownloadURL, getMetadata } from "firebase/storage"
+import { supabase } from "../utils/supabaseClient"
 
 export default function ButtonRequest() {
 	const [open, setOpen] = useState(false)
@@ -14,44 +14,39 @@ export default function ButtonRequest() {
 
 	const fade = useSpring({
 		opacity: open ? 1 : 0,
-		config: {
-			duration: 200,
-		},
+		config: { duration: 200 },
 	})
 
 	const [images, setImages] = useState([])
 
-	// Fungsi untuk mengambil daftar gambar dari Firebase Storage
-	const fetchImagesFromFirebase = async () => {
+	const fetchImagesFromSupabase = async () => {
 		try {
-			const storage = getStorage()
-			const storageRef = ref(storage, "images/")
-
-			const imagesList = await listAll(storageRef)
-
-			const imagePromises = imagesList.items.map(async (item) => {
-				const url = await getDownloadURL(item)
-				const metadata = await getMetadata(item)
-
-				return {
-					url,
-					timestamp: metadata.timeCreated,
-				}
+			const { data, error } = await supabase.storage.from("upload").list("", {
+				limit: 100,
+				offset: 0,
+				sortBy: { column: "created_at", order: "asc" },
 			})
 
-			const imageURLs = await Promise.all(imagePromises)
+			if (error) throw error
 
-			// Urutkan array berdasarkan timestamp (dari yang terlama)
-			imageURLs.sort((a, b) => a.timestamp - b.timestamp)
+			const urls = await Promise.all(
+				data.map(async (file) => {
+					const { data: publicURLData } = supabase.storage.from("upload").getPublicUrl(file.name)
+					return {
+						url: publicURLData.publicUrl,
+						timestamp: new Date(file.created_at || file.metadata?.time_created || Date.now()),
+					}
+				})
+			)
 
-			setImages(imageURLs)
+			setImages(urls)
 		} catch (error) {
-			console.error("Error fetching images from Firebase Storage:", error)
+			console.error("Error fetching images from Supabase:", error.message)
 		}
 	}
 
 	useEffect(() => {
-		fetchImagesFromFirebase()
+		fetchImagesFromSupabase()
 	}, [])
 
 	return (
@@ -71,19 +66,19 @@ export default function ButtonRequest() {
 				onClose={handleClose}
 				closeAfterTransition
 				BackdropComponent={Backdrop}
-				BackdropProps={{
-					timeout: 500,
-				}}>
+				BackdropProps={{ timeout: 500 }}>
 				<animated.div style={fade}>
-					<Box className="modal-container">
-						<CloseIcon
-							style={{ position: "absolute", top: "10px", right: "10px", cursor: "pointer",color: "grey", }}
-							onClick={handleClose}
-						/>
+					<Box className="bg-[#1e1e1e] text-white rounded-xl shadow-xl p-6 w-[90%] md:w-[500px] mx-auto mt-[10%] relative">
+						<button onClick={handleClose} className="absolute top-3 right-3 text-gray-400 hover:text-white">
+							<CloseIcon />
+						</button>
+
 						<Typography id="spring-modal-description" sx={{ mt: 2 }}>
 							<h6 className="text-center text-white text-2xl mb-5">Request</h6>
 							<div className="h-[22rem] overflow-y-scroll overflow-y-scroll-no-thumb">
 								{images
+									.slice()
+									.reverse()
 									.map((imageData, index) => (
 										<div
 											key={index}
@@ -98,8 +93,7 @@ export default function ButtonRequest() {
 												{new Date(imageData.timestamp).toLocaleString()}
 											</span>
 										</div>
-									))
-									.reverse()}
+									))}
 							</div>
 							<div className="text-white text-[0.7rem] mt-5">
 								Note : Jika tidak ada gambar yang sudah anda upload silahkan reload
