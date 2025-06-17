@@ -16,6 +16,10 @@ const Carousel = () => {
 		"https://files.catbox.moe/vlriqi.jpeg",
 		"https://files.catbox.moe/ium3cx.jpeg",
 		"https://files.catbox.moe/1ejhfq.jpeg",
+		"https://img1.pixhost.to/images/6549/611974804_yopaihosting.jpg",
+		"https://img1.pixhost.to/images/6549/611974806_yopaihosting.jpg",
+		"https://img1.pixhost.to/images/6549/611974809_yopaihosting.jpg",
+		"https://img1.pixhost.to/images/6549/611974813_yopaihosting.jpg"
 	]) // Ganti dengan URL Catbox milikmu
 
 	const [open, setOpen] = useState(false)
