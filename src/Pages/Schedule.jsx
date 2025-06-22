@@ -57,7 +57,7 @@ const Schedule = () => {
               {TodayComponent ? (
                 <TodayComponent />
               ) : (
-                <p className="opacity-50">(Libur Cikk😹)</p>
+                <p className="opacity-50">Libur Cikk😹</p>
               )}
             </Suspense>
           </div>
@@ -87,7 +87,7 @@ const Schedule = () => {
             </div>
           ))
         ) : (
-          <p className="opacity-50">(Libur Cikk😹)</p>
+          <p className="opacity-50">Libur Cikk😹</p>
         )}
       </div>
     </>
