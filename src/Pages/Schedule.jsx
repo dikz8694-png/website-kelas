@@ -2,6 +2,7 @@ import React, { useEffect, Suspense } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+// Lazy load komponen mapel
 const Senin = React.lazy(() => import("../components/Mapel/Senin"));
 const Selasa = React.lazy(() => import("../components/Mapel/Selasa"));
 const Rabu = React.lazy(() => import("../components/Mapel/Rabu"));
@@ -9,54 +10,40 @@ const Kamis = React.lazy(() => import("../components/Mapel/Kamis"));
 const Jumat = React.lazy(() => import("../components/Mapel/Jumat"));
 
 const Schedule = () => {
-  const daysOfWeek = [
-    "Minggu",
-    "Senin",
-    "Selasa",
-    "Rabu",
-    "Kamis",
-    "Jumat",
-  ];
-  const currentDay = daysOfWeek[new Date().getDay()];
-  const currentWeek = Math.floor((new Date().getDate() - 1) / 7) + 1;
+  const daysOfWeek = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  const todayIndex = new Date().getDay();
+  const currentDay = daysOfWeek[todayIndex];
 
   useEffect(() => {
     AOS.init();
-    AOS.refresh();
   }, []);
 
-  let piketGroup = [];
-
-  // Menentukan kelompok piket berdasarkan minggu saat ini
-  if (currentWeek === 1 || currentWeek === 3) {
-    piketGroup = [
-
-    ];
-  } else if (currentWeek === 2 || currentWeek === 4) {
-    piketGroup = [
-
-    ];
-  }
-
-  const dayComponents = [
-    null, // Kosongkan indeks 0
-    Senin,
-    Selasa,
-    Rabu,
-    Kamis,
-    Jumat,
+  // DATA PIKET: tetap sama setiap minggu
+  const piketGroup = [
+    ["Audry", "Melinda", "Aida", "Iball", "Aldi"],      // Senin
+    ["", "", "", "", ""],   // Selasa
+    ["", "", "", "", ""],      // Rabu
+    ["", "", "", "", ""],     // Kamis
+    ["", "", "", "", ""],    // Jumat
   ];
 
-  // Menampilkan komponen berdasarkan hari saat ini
-  const TodayComponent = dayComponents[new Date().getDay()];
+  const dayComponents = [
+    null,   // 0: Minggu
+    Senin,  // 1
+    Selasa, // 2
+    Rabu,   // 3
+    Kamis,  // 4
+    Jumat,  // 5
+    null    // 6: Sabtu
+  ];
 
-  // Menampilkan nama-nama piket sesuai dengan hari dan minggu saat ini
-  const currentPiketNames = piketGroup[new Date().getDay() - 1];
+  const TodayComponent = dayComponents[todayIndex];
+  const currentPiketNames = (todayIndex >= 1 && todayIndex <= 5) ? piketGroup[todayIndex - 1] : [];
 
   return (
     <>
       {/* Jadwal Mapel */}
-      <div className="lg:flex lg:justify-center lg:gap-32 lg:mb-10 lg:mt-16 ">
+      <div className="lg:flex lg:justify-center lg:gap-32 lg:mb-10 lg:mt-16">
         <div className="text-white flex flex-col justify-center items-center mt-8 md:mt-3 overflow-y-hidden">
           <div
             className="text-2xl font-medium mb-5"
@@ -66,9 +53,13 @@ const Schedule = () => {
             {currentDay}
           </div>
           <div data-aos="fade-up" data-aos-duration="400">
-<Suspense fallback={<p className="opacity-50">Loading...</p>}>
-            {TodayComponent ? <TodayComponent /> : <p className="opacity-50">(ADMIN MAGER NULIS🤓)</p>}
-          </Suspense>
+            <Suspense fallback={<p className="opacity-50">Loading...</p>}>
+              {TodayComponent ? (
+                <TodayComponent />
+              ) : (
+                <p className="opacity-50">(Libur Cikk😹)</p>
+              )}
+            </Suspense>
           </div>
         </div>
       </div>
@@ -86,7 +77,7 @@ const Schedule = () => {
           currentPiketNames.map((piketName, index) => (
             <div
               key={index}
-              className={` border-t-2 border-white flex justify-center py-[0.50rem] w-72 px-3 ${
+              className={`border-t-2 border-white flex justify-center py-[0.50rem] w-72 px-3 ${
                 index === currentPiketNames.length - 1 ? "border-b-2" : ""
               }`}
               data-aos="fade-up"
@@ -96,7 +87,7 @@ const Schedule = () => {
             </div>
           ))
         ) : (
-          <p className="opacity-50">(ATMIN MAGER NGETIK)</p>
+          <p className="opacity-50">(Libur Cikk😹)</p>
         )}
       </div>
     </>
