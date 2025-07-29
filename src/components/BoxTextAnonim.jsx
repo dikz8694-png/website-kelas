@@ -9,24 +9,18 @@ import { useSpring, animated } from "@react-spring/web"
 import CloseIcon from "@mui/icons-material/Close"
 
 const Fade = React.forwardRef(function Fade(props, ref) {
-	const { children, in: open, onClick, onEnter, onExited, ownerState, ...other } = props
+	const { children, in: open, onEnter, onExited, ...other } = props
 	const style = useSpring({
 		from: { opacity: 0 },
 		to: { opacity: open ? 1 : 0 },
-		config: {
-			duration: open ? 200 : 50,
-		},
-		onStart: () => {
-			if (open && onEnter) onEnter(null, true)
-		},
-		onRest: () => {
-			if (!open && onExited) onExited(null, true)
-		},
+		config: { duration: open ? 200 : 50 },
+		onStart: () => open && onEnter?.(null, true),
+		onRest: () => !open && onExited?.(null, true),
 	})
 
 	return (
 		<animated.div ref={ref} style={style} {...other}>
-			{React.cloneElement(children, { onClick })}
+			{children}
 		</animated.div>
 	)
 })
@@ -34,10 +28,8 @@ const Fade = React.forwardRef(function Fade(props, ref) {
 Fade.propTypes = {
 	children: PropTypes.element.isRequired,
 	in: PropTypes.bool,
-	onClick: PropTypes.any,
 	onEnter: PropTypes.func,
 	onExited: PropTypes.func,
-	ownerState: PropTypes.any,
 }
 
 export default function BoxTextAnonim() {
@@ -48,10 +40,7 @@ export default function BoxTextAnonim() {
 	const handleClose = () => setOpen(false)
 
 	const handleSend = () => {
-		if (message.trim()) {
-			const encodedMsg = encodeURIComponent(message)
-			window.location.href = `https://ngl.link/iball12?message=${encodedMsg}` // Ganti "yourusername"
-		}
+		window.open("https://ngl.link/officialaboutxiiips1/confessions", "_blank")
 	}
 
 	return (
@@ -67,17 +56,13 @@ export default function BoxTextAnonim() {
 			</div>
 
 			<Modal
-				aria-labelledby="spring-modal-title"
-				aria-describedby="spring-modal-description"
 				open={open}
 				onClose={handleClose}
 				closeAfterTransition
+				aria-labelledby="spring-modal-title"
+				aria-describedby="spring-modal-description"
 				slots={{ backdrop: Backdrop }}
-				slotProps={{
-					backdrop: {
-						TransitionComponent: Fade,
-					},
-				}}
+				slotProps={{ backdrop: { TransitionComponent: Fade } }}
 			>
 				<Fade in={open}>
 					<Box
@@ -86,7 +71,7 @@ export default function BoxTextAnonim() {
 							top: "50%",
 							left: "50%",
 							transform: "translate(-50%, -50%)",
-							bgcolor: "#1f2937", // Tailwind slate-800
+							bgcolor: "#1f2937",
 							color: "white",
 							borderRadius: 3,
 							p: 4,
@@ -95,14 +80,14 @@ export default function BoxTextAnonim() {
 							maxWidth: 400,
 						}}
 					>
-						<Button onClick={handleClose} style={{ position: "absolute", top: "2%", right: "0", color: "white", opacity: "70%" }}>
+						<Button onClick={handleClose} sx={{ position: "absolute", top: 8, right: 8, color: "white", opacity: 0.7 }}>
 							<CloseIcon />
 						</Button>
-						<Typography id="spring-modal-description" sx={{ mt: 3 }}>
+						<Typography sx={{ mt: 3 }}>
 							<div className="flex flex-col items-center space-y-4">
-								<p className="text-lg font-semibold text-center">Kirim pesan anonim kamu ke aku via NGL</p>
+								<p className="text-lg font-semibold text-center">Kirim pesan anonim kamu ke kami via NGL</p>
 								<textarea
-									placeholder="Tulis pesan kamu di sini..."
+									placeholder="Tulis dulu pesannya di sini (opsional)..."
 									className="w-full p-3 rounded-md text-black border border-gray-300 focus:ring-2 focus:ring-pink-500"
 									rows={4}
 									value={message}
@@ -112,7 +97,7 @@ export default function BoxTextAnonim() {
 									onClick={handleSend}
 									className="bg-pink-500 text-white px-6 py-2 rounded-md font-semibold hover:bg-pink-600 transition"
 								>
-									Kirim Sekarang
+									Buka NGL Sekarang
 								</button>
 							</div>
 						</Typography>
