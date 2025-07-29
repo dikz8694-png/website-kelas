@@ -19,7 +19,18 @@ const Carousel = () => {
 		"https://img1.pixhost.to/images/6549/611974804_yopaihosting.jpg",
 		"https://img1.pixhost.to/images/6549/611974806_yopaihosting.jpg",
 		"https://img1.pixhost.to/images/6549/611974809_yopaihosting.jpg",
-		"https://img1.pixhost.to/images/6549/611974813_yopaihosting.jpg"
+		"https://img1.pixhost.to/images/6549/611974813_yopaihosting.jpg",
+		"https://files.catbox.moe/p9xrna.jpg",
+		"https://files.catbox.moe/chkols.jpg",
+		"https://files.catbox.moe/csv024.jpg",
+		"https://files.catbox.moe/l5xc39.jpg",
+		"https://files.catbox.moe/0xr0fd.jpg",
+		"https://files.catbox.moe/62blrx.jpg",
+		"https://files.catbox.moe/tjwo6x.jpg",
+		"https://files.catbox.moe/zxssq6.jpg",
+		"https://files.catbox.moe/swhfov.jpg",
+		"https://files.catbox.moe/oyljz5.jpg",
+		"https://files.catbox.moe/jlb2cu.jpg"
 	]) // Ganti dengan URL Catbox milikmu
 
 	const [open, setOpen] = useState(false)
