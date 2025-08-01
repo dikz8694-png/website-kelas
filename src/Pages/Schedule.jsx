@@ -20,11 +20,11 @@ const Schedule = () => {
 
   // DATA PIKET: tetap sama setiap minggu
   const piketGroup = [
-    ["Natasya", "Meylinda", "Syakila", "Sulis", "Iqbal", "Wendi"],      // Senin
-    ["Imelda", "Karisa", "Wijianita", "Cintia", "Ferdy", "Raka", "Reza"],   // Selasa
-    ["Novika", "Arisma", "Mawar", "Aida", "Sudiro", "Rasya"],      // Rabu
-    ["Sahara", "Salsa", "Putri", "Reni", "Alja", "Rizky"],     // Kamis
-    ["Nabila", "Alyka", "Umi", "Candra", "Raihan", "Aldi"],    // Jumat
+    ["Aufa", "Sohib", "Arif", "Aditya", "Adinda", "Zhahara", " Vhiola"],      // Senin
+    ["Sani", "Vhania", "Fauzan", "Farel", "Izam", "Clara", "Ari"],   // Selasa
+    ["Reha", "Salwa", "Citra", "Amirah", "Azka", "Syahat"],      // Rabu
+    ["Kaisar", "Meysa", "Sasmita", "Gea", "Naura S", "Adit P"],     // Kamis
+    ["Keyza", "Naura M", "Nindy", "Asyifa", "Akmal", "Raffa"],    // Jumat
   ];
 
   const dayComponents = [
