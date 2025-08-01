@@ -40,7 +40,7 @@ export default function BoxTextAnonim() {
 	const handleClose = () => setOpen(false)
 
 	const handleSend = () => {
-		window.open("https://ngl.link/officialaboutxiiips1/confessions", "_blank")
+		window.open("https://ngl.link/panga.83", "_blank")
 	}
 
 	return (
