@@ -6,7 +6,7 @@ const Jumat = () => {
             </div>
 
             <div className="flex justify-between py-[0.50rem] w-72 px-3 opacity-60" data-aos="fade-up" data-aos-duration="600">
-                <div className="w-full text-base font-medium">PAI</div>
+                <div className="w-full text-base font-medium">INFORMATIKA</div>
             </div>
         </>
     )
