@@ -42,7 +42,7 @@ const Home = () => {
 			{/* Dekstop */}
 			<div className="hidden lg:block">
 				<div className="flex justify-center items-center flex-col h-[100vh]">
-					<h5 className="text-[1.4rem] font-semibold">Hi, Selamat Datang</h5>
+					<h5 className="text-[1.4rem] font-semibold">Hi, Selamat Datang! </h5>
 					<h1 className="text-7xl font-extrabold" id="Glow">
 						WELCOME
 					</h1>
