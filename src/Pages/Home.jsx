@@ -20,7 +20,7 @@ const Home = () => {
 							3
 						</span>
 						<span id="AngkaGradientPink" className="text-5xl">
-							5
+							2
 						</span>
 					</div>
 					<div id="AngkaGradientPink" className="flex items-center justify-center">
