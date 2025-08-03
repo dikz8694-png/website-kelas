@@ -11,7 +11,7 @@ import { useSpring, animated } from "@react-spring/web"
 
 const Carousel = () => {
 	const [images] = useState([
-		"https://files.catbox.moe/ium3cx.jpeg",
+		"https://files.catbox.moe/j3hll7.jpg",
 		"https://files.catbox.moe/1ejhfq.jpeg",
 		"https://files.catbox.moe/vlriqi.jpeg",
 		"https://files.catbox.moe/ium3cx.jpeg",
