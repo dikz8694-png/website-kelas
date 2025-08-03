@@ -22,7 +22,7 @@ const Schedule = () => {
   const piketGroup = [
     ["Aufa", "Sohib", "Arif", "Aditya", "Adinda", "Zhahara", " Vhiola"],      // Senin
     ["Sani", "Vhania", "Fauzan", "Farel", "Izam", "Clara", "Ari"],   // Selasa
-    ["Reha", "Salwa", "Citra", "Amirah", "Azka", "Syahat"],      // Rabu
+    ["Reha", "Salwa", "Citra", "Amirah", "Andika", "Syahat"],      // Rabu
     ["Kaisar", "Meysa", "Sasmita", "Gea", "Naura S", "Adit P"],     // Kamis
     ["Keyza", "Naura M", "Nindy", "Asyifa", "Akmal", "Raffa"],    // Jumat
   ];
@@ -57,7 +57,7 @@ const Schedule = () => {
               {TodayComponent ? (
                 <TodayComponent />
               ) : (
-                <p className="opacity-50">Liburr😋</p>
+                <p className="opacity-50">libur euy🤭</p>
               )}
             </Suspense>
           </div>
@@ -87,7 +87,7 @@ const Schedule = () => {
             </div>
           ))
         ) : (
-          <p className="opacity-50">Liburr😋</p>
+          <p className="opacity-50">libur euy🤭</p>
         )}
       </div>
     </>
