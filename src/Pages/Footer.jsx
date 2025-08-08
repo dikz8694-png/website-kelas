@@ -30,7 +30,7 @@ const Footer = () => {
 							<h2 class="mb-4 text-sm font-semibold uppercase text-white">Follow us</h2>
 							<ul class="text-gray-400 dark:text-gray-400 font-medium">
 								<li class="mb-2">
-									<a href="https://www.instagram.com/eightthree.bubbles" class="hover:underline ">
+									<a href="https://www.instagram.com/eightthree.bubbles?" class="hover:underline ">
 										Instagram
 									</a>
 								</li>
@@ -55,7 +55,7 @@ const Footer = () => {
 				<div class="sm:flex sm:items-center sm:justify-between">
 					<div class="flex mt-4 justify-center sm:mt-0">
 						<p className="text-[0.7rem] text-white opacity-70">
-							© {new Date().getFullYear()} Kelas 8.3 MTSN1M.E | di kelola oleh dikaa			</p>
+							© {new Date().getFullYear()} Kelas 8.3 MTSN1M.E | di kelola oleh dikaa😈			</p>
 					</div>
 				</div>
 			</div>
